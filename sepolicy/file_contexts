@@ -30,12 +30,15 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.gatekeeper@1\.0-service\.software			u:object_r:hal_gatekeeper_default_exec:s0
 
 # Lights
-/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.g2             u:object_r:hal_light_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.vu3            u:object_r:hal_light_default_exec:s0
 /sys/devices/mdp(.*)/qcom,mdss_fb_primary(.*)/leds(/.*)?                             u:object_r:sysfs_leds:s0
 /sys/devices/mdp(.*)/qcom,mdss_fb_primary(.*)/leds/lcd-backlight/max_brightness      u:object_r:sysfs_leds:s0
-/sys/devices/virtual/lg_rgb_led/use_patterns/blink_patterns                          u:object_r:sysfs_leds:s0
-/sys/devices/virtual/lg_rgb_led/use_patterns/rear_blink_patterns                     u:object_r:sysfs_leds:s0
-/sys/devices/virtual/lg_rgb_led/use_patterns/rear_setting                            u:object_r:sysfs_leds:s0
+/sys/devices/f9967000.i2c/i2c-0/0-0032/led_blink                                     u:object_r:sysfs_leds:s0
+/sys/devices/f9967000.i2c/i2c-0/0-0032/leds/R/brightness                             u:object_r:sysfs_leds:s0
+/sys/devices/f9967000.i2c/i2c-0/0-0032/leds/G/brightness                             u:object_r:sysfs_leds:s0
+/sys/devices/f9967000.i2c/i2c-0/0-0032/leds/B/brightness                             u:object_r:sysfs_leds:s0
+/sys/class/leds/button-backlight1/brightness                                         u:object_r:sysfs_leds:s0
+/sys/class/leds/button-backlight2/brightness                                         u:object_r:sysfs_leds:s0
 
 # MPdecision
 /data/system/default_values                         u:object_r:mpctl_data_file:s0

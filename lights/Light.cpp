@@ -24,8 +24,8 @@
 #define LCD_BRIGHTNESS_MAX 255
 #define LCD_BRIGHTNESS_DELTA (LCD_BRIGHTNESS_MAX - LCD_BRIGHTNESS_MIN)
 
-#define KPDBL_ID_OFF  "0"
-#define KPDBL_ID_NOTI "6"
+//#define KPDBL_ID_OFF  "0"
+//#define KPDBL_ID_NOTI "6"
 
 namespace {
 using android::hardware::light::V2_0::LightState;
@@ -56,16 +56,26 @@ namespace V2_0 {
 namespace implementation {
 
 Light::Light(std::ofstream&& backlight, std::ofstream&& blinkPattern,
-             std::ofstream&& rearSetting) :
+             std::ofstream&& redLed,
+             std::ofstream&& greenLed,
+             std::ofstream&& blueLed,
+             std::ofstream&& buttonBacklight1,
+             std::ofstream&& buttonBacklight2) :
     mBacklight(std::move(backlight)),
     mBlinkPattern(std::move(blinkPattern)),
-    mRearSetting(std::move(rearSetting)) {
+    mRedLed(std::move(redLed)),
+    mGreenLed(std::move(greenLed)),
+    mBlueLed(std::move(blueLed)),
+    mButtonBacklight1(std::move(buttonBacklight1)),
+    mButtonBacklight2(std::move(buttonBacklight2)) {
     auto attnFn(std::bind(&Light::setAttentionLight, this, std::placeholders::_1));
     auto backlightFn(std::bind(&Light::setBacklight, this, std::placeholders::_1));
+    auto buttonsFn(std::bind(&Light::setButtonsBacklight, this, std::placeholders::_1));
     auto batteryFn(std::bind(&Light::setBatteryLight, this, std::placeholders::_1));
     auto notifFn(std::bind(&Light::setNotificationLight, this, std::placeholders::_1));
     mLights.emplace(std::make_pair(Type::ATTENTION, attnFn));
     mLights.emplace(std::make_pair(Type::BACKLIGHT, backlightFn));
+    mLights.emplace(std::make_pair(Type::BUTTONS, buttonsFn));
     mLights.emplace(std::make_pair(Type::BATTERY, batteryFn));
     mLights.emplace(std::make_pair(Type::NOTIFICATIONS, notifFn));
 }
@@ -102,6 +112,14 @@ void Light::setBacklight(const LightState& state) {
     mBacklight << brightness << std::endl;
 }
 
+void Light::setButtonsBacklight(const LightState& state) {
+    std::lock_guard<std::mutex> lock(mLock);
+    bool on = isLit(state);
+    int brightness = on?8:0;
+    mButtonBacklight1 << brightness << std::endl;
+    mButtonBacklight2 << brightness << std::endl;
+}
+
 void Light::setBatteryLight(const LightState& state) {
     std::lock_guard<std::mutex> lock(mLock);
     mBatteryState = state;
@@ -112,7 +130,6 @@ void Light::setNotificationLight(const LightState& state) {
     std::lock_guard<std::mutex> lock(mLock);
     mNotificationState = state;
     setSpeakerBatteryLightLocked();
-    setRearLightLocked(state);
 }
 
 void Light::setSpeakerBatteryLightLocked() {
@@ -124,7 +141,10 @@ void Light::setSpeakerBatteryLightLocked() {
         setSpeakerLightLocked(mBatteryState);
     } else {
         /* Lights off */
-        mBlinkPattern << "0x0,-1,-1" << std::endl;
+        mBlinkPattern << "0x0,0,0" << std::endl;
+        mRedLed << 0 << std::endl;
+        mGreenLed << 0 << std::endl;
+        mBlueLed << 0 << std::endl;
     }
 }
 
@@ -140,25 +160,32 @@ void Light::setSpeakerLightLocked(const LightState& state) {
             break;
         case Flash::NONE:
         default:
-            onMS = -1;
-            offMS = -1;
+            onMS = 0;
+            offMS = 0;
             break;
     }
 
     color = state.color & 0x00ffffff;
+    
+    if (onMS > 0 && offMS > 0) {
+            mBlinkPattern << 0 << std::endl;
+            mRedLed << 0 << std::endl;
+            mGreenLed << 0 << std::endl;
+            mBlueLed << 0 << std::endl;
+            sprintf(blink_pattern,"0x%x,%d,%d",color,onMS,offMS);
 
-    sprintf(blink_pattern, "0x%x,%d,%d", color, onMS, offMS);
-    mBlinkPattern << blink_pattern << std::endl;
-}
+            mBlinkPattern << blink_pattern << std::endl;
+        } else {
+            int red, green, blue;
+            red = (color >> 16) & 0xFF;
+            green = (color >> 8) & 0xFF;
+            blue = color & 0xFF;
 
-void Light::setRearLightLocked(const LightState& state) {
-    char blink_pattern[PAGE_SIZE];
-
-    if(isLit(state) && state.flashMode == Flash::TIMED){
-        mRearSetting << KPDBL_ID_NOTI << std::endl;
-    } else  {
-        mRearSetting << KPDBL_ID_OFF << std::endl;
-    }
+            mBlinkPattern << 0 << std::endl;
+            mRedLed << red << std::endl;
+            mGreenLed << green << std::endl;
+            mBlueLed << blue << std::endl;
+        }
 }
 
 }  // namespace implementation
