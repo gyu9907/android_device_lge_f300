@@ -15,7 +15,13 @@
 # limitations under the License.
 #
 
-TARGET_SPECIFIC_HEADER_PATH := device/lge/g2-common/include
+TARGET_KERNEL_CONFIG := lineageos_f300_defconfig
+
+TARGET_OTA_ASSERT_DEVICE := galbi,f300,vu3
+
+G2_DTS_TARGET := msm8974-vu3-kr
+
+TARGET_SPECIFIC_HEADER_PATH := device/lge/f300/include
 
 # Architecture
 TARGET_ARCH := arm
@@ -28,7 +34,7 @@ TARGET_CPU_VARIANT := generic
 TARGET_CPU_VARIANT_RUNTIME := krait
 
 # Assertions
-TARGET_BOARD_INFO_FILE ?= device/lge/g2-common/board-info.txt
+TARGET_BOARD_INFO_FILE ?= device/lge/f300/board-info.txt
 
 # Binder API version
 TARGET_USES_64_BIT_BINDER := true
@@ -40,9 +46,9 @@ TARGET_NO_RADIOIMAGE := true
 
 # Kernel
 BOARD_CUSTOM_BOOTIMG := true
-BOARD_CUSTOM_BOOTIMG_MK := device/lge/g2-common/releasetools/mkbootimg.mk
+BOARD_CUSTOM_BOOTIMG_MK := device/lge/f300/releasetools/mkbootimg.mk
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := androidboot.hardware=g2
+BOARD_KERNEL_CMDLINE := androidboot.hardware=vu3
 BOARD_KERNEL_IMAGE_NAME := zImage
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
@@ -62,8 +68,8 @@ USE_CUSTOM_AUDIO_POLICY := 1
 USE_XML_AUDIO_POLICY_CONF := 1
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/g2-common/bluetooth
-BOARD_CUSTOM_BT_CONFIG := device/lge/g2-common/bluetooth/vnd_g2.txt
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/f300/bluetooth
+BOARD_CUSTOM_BT_CONFIG := device/lge/f300/bluetooth/vnd_vu3.txt
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 
@@ -87,10 +93,10 @@ TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS := 0x02000000U
 TARGET_DISABLE_POSTRENDER_CLEANUP := true
 
 # Filesystem
-TARGET_FS_CONFIG_GEN := device/lge/g2-common/config.fs
+TARGET_FS_CONFIG_GEN := device/lge/f300/config.fs
 
 # HIDL
-DEVICE_MANIFEST_FILE := device/lge/g2-common/configs/manifest.xml
+DEVICE_MANIFEST_FILE := device/lge/f300/configs/manifest.xml
 
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
@@ -99,7 +105,7 @@ EXTENDED_FONT_FOOTPRINT := true
 TARGET_HAS_MEMFD_BACKPORT := true
 
 # Offmode Charging
-BOARD_HEALTHD_CUSTOM_CHARGER_RES := device/lge/g2-common/charger/images
+BOARD_HEALTHD_CUSTOM_CHARGER_RES := device/lge/f300/charger/images
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072
@@ -123,14 +129,14 @@ BOARD_USES_QC_TIME_SERVICES := true
 # Recovery
 BOOTLOADER_MESSAGE_OFFSET := 128
 BOARD_NO_SECURE_DISCARD := true
-TARGET_RECOVERY_FSTAB := device/lge/g2-common/rootdir/etc/fstab.g2
+TARGET_RECOVERY_FSTAB := device/lge/f300/rootdir/etc/fstab.vu3
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_g2
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # Releasetools
-TARGET_RELEASETOOLS_EXTENSIONS := device/lge/g2-common/releasetools
+TARGET_RELEASETOOLS_EXTENSIONS := device/lge/f300/releasetools
 
 # SDClang
 TARGET_USE_SDCLANG := true
@@ -139,7 +145,7 @@ TARGET_USE_SDCLANG := true
 include device/qcom/sepolicy-legacy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += \
-    device/lge/g2-common/sepolicy
+    device/lge/f300/sepolicy
 
 # Shims
 TARGET_LD_SHIM_LIBS := /system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so \

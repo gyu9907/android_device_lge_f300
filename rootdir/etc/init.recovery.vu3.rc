@@ -1,4 +1,4 @@
-import /init.recovery.g2.power.rc
+import /init.recovery.vu3.power.rc
 
 on fs
     wait /dev/block/platform/msm_sdcc.1

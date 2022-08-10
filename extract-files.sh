@@ -8,7 +8,7 @@
 
 set -e
 
-DEVICE_COMMON=g2-common
+DEVICE=f300
 VENDOR=lge
 
 # Load extractutils and do some sanity checks
@@ -59,14 +59,9 @@ function blob_fixup() {
     esac
 }
 
-# Initialize the helper for common device
-setup_vendor "$DEVICE_COMMON" "$VENDOR" "$ANDROID_ROOT" true $clean_vendor
-
-extract "$MY_DIR"/proprietary-files.txt "$SRC" "$SECTION"
-
 # Initialize the helper for device
 setup_vendor "$DEVICE" "$VENDOR" "$ANDROID_ROOT" false $clean_vendor
 
-extract "$MY_DIR"/../$DEVICE/proprietary-files.txt "$SRC" "$SECTION"
+extract "$MY_DIR"/proprietary-files.txt "$SRC" "$SECTION"
 
 "$MY_DIR"/setup-makefiles.sh

@@ -8,7 +8,7 @@
 
 set -e
 
-DEVICE_COMMON=g2-common
+DEVICE=f300
 VENDOR=lge
 
 # Load extract_utils and do some sanity checks
@@ -24,26 +24,14 @@ if [ ! -f "$HELPER" ]; then
 fi
 . "$HELPER"
 
-# Initialize the helper for common device
-setup_vendor "$DEVICE_COMMON" "$VENDOR" "$ANDROID_ROOT" true
-
-# Copyright headers and common guards
-write_headers "g2 d800 d801 d802 d803 f320 l01f ls980 vs980"
-
-# The common blobs
-write_makefiles "$MY_DIR"/proprietary-files.txt true
-
-# We are done with common
-write_footers
-
-# Initialize the helper for device
+# Initialize the helper
 setup_vendor "$DEVICE" "$VENDOR" "$ANDROID_ROOT"
 
 # Copyright headers and guards
 write_headers
 
 # The device blobs
-write_makefiles "$MY_DIR"/../$DEVICE/proprietary-files.txt true
+write_makefiles "$MY_DIR"/proprietary-files.txt true
 
-# We are done with device
+# We are done
 write_footers
