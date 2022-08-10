@@ -1,127 +1,162 @@
-# bcm94335wlcspMS_ES50_RC171p24p23_04192013_AM_mdfy_PAparam-YJ.txt -- 4/19/2013 by Murata, based on bcm94335wlcspMS_ES50_RC171p24p9_02282013_AM.txt, changed PA parameters and txidxcap parameters, 5G PowerOffset.
-# bcm94335wlcspMS_ES50_RC171p24p9_03082013.txt -- 2/28/2013 by Broadcom Corporation
-# Use with AARD171RC24_REL_6_34_171_12_MFG -- Murata BCM4335 WLCSP 11AC Module
-# Sample variables file for Murata Type-XJ ES5.0 (0x00 0x11) -- bcm94335wlcspMS_AM_P400.txt as original
-sromrev=11
-boardrev=0x1500
-boardtype=0x064b
-boardflags=0x10401001
-boardflags2=0x0
-boardflags3=0x1800c08b
-macaddr=00:90:4c:c5:12:38
-ccode=0
-regrev=0
-antswitch=0
-pdgain5g=1
-pdgain2g=1
-tworangetssi2g=0
-tworangetssi5g=0
-femctrl=4
-vendid=0x14e4
-devid=0x43ae
+# NVRAM file for BCM94334WLAGB board
+# 5GHz FEM RFMD RF8502 and 2.4GHz FEM RFMD RF8202
+# LG-D1 Vu3(F300) Rev.1.0 - 20130819
+
 manfid=0x2d0
-#prodid=0x052e
-nocrc=1
-#otpimagesize=502
+prodid=0x05de
+vendid=0x14e4
+devid=0x4380
+boardtype=0x05de
+boardrev=0x1205
+boardnum=23
+macaddr=00:90:4c:c5:12:38
+sromrev=3
+
+boardflags=0x10081a01
 xtalfreq=37400
-extpagain2g=1
-extpagain5g=1
-rxgains2gelnagaina0=2
-rxgains2gtrisoa0=6
-rxgains2gtrelnabypa0=1
-rxgains5gelnagaina0=3
-rxgains5gtrisoa0=5
-rxgains5gtrelnabypa0=1
-rxchain=1
-txchain=1
+nocrc=1
+ag0=0
 aa2g=1
-aa5g=1
-ag0=253
-ag1=0
-tssipos5g=1
-tssipos2g=1
-#PA parameters (2G20M/2G40M/5G20M/5G40M/5G80M)
-#PA parameters modified by Murata
-#pa2ga0=-208,6208,-764
-#pa2ga1=-203,6429,-793
-#pa5ga0=-167,5736,-685,-157,5669,-670,-157,5548,-665,-141,5621,-664
-#pa5ga1=-101,6543,-735,-99,6452,-731,-147,5743,-695,-75,6468,-723
-#pa5ga2=-172,5903,-708,-160,5868,-698,-113,6264,-722,-125,5915,-684
-pa2ga0=0xff31,0x1759,0xFD1D
-pa2ga1=0xff35,0x18BB,0xFCEC
-pa5ga0=0xff53,0x1509,0xFD73,0xff63,0x156B,0xFD70,0xff69,0x1508,0xFD7B,0xff7e,0x15B3,0xFD73
-pa5ga1=0xff56,0x1596,0xFD5F,0xff88,0x1764,0xFD45,0xff89,0x1632,0xFD65,0xff69,0x160E,0xFD49
-pa5ga2=0xff5a,0x1667,0xFD4E,0xff5f,0x15F7,0xFD5E,0xff5a,0x1531,0xFD68,0xff6e,0x1587,0xFD6A
+ccode=ALL
+pa0itssit=0x20
 
-# Default Target Power for 2G -- 17dBm(11)/14dBm(54)/13dBm(MCS7,MCS8)/16dBm(6,MCS0)
+#For external ePA
+extpagain2g=2
+extpagain5g=2
+
+#PA parameters for 2.4GHz
+#pa0b0=0x1564
+#pa0b1=0xfd72
+#pa0b2=0xff51
+pa0b0=0x1501
+pa0b1=0xFD90
+pa0b2=0xFF64
+tssifloor2g=20
+# rssi params for 2.4GHz
+rssismf2g=0xf
+rssismc2g=0x8
+rssisav2g=0x1
+
+# rssi params for 5GHz
+rssismf5g=0xb
+rssismc5g=0x6
+rssisav5g=0x3
+#5G-PA parameters for low band
+#pa1lob0=0x199a
+#pa1lob1=0xfd1d
+#pa1lob2=0xff7a
+pa1lob0=0x1946
+pa1lob1=0xFD1D
+pa1lob2=0xFF7E
+tssifloor5gl=42
+#5G-PA parameters for midband
+#pa1b0=0x19bb
+#pa1b1=0xfd0e
+#pa1b2=0xff6e
+pa1b0=0x1A07
+pa1b1=0xFCF6
+pa1b2=0xFF74
+tssifloor5g=46
+#5G-PA paramasdeters for high band
+#pa1hib0=0x1a61
+#pa1hib1=0xfcf5
+#pa1hib2=0xff6b
+pa1hib0=0x19F2
+pa1hib1=0xFCEF
+pa1hib2=0xFF6A
+tssifloor5gh=46
+
+#2.4G-target power
 maxp2ga0=80
-cckbw202gpo=0
-cckbw20ul2gpo=0
-dot11agofdmhrbw202gpo=0x9977
-ofdmlrbw202gpo=0x7775
-mcsbw202gpo=0xCC777664
+ofdm2gpo=0x77777755
+mcs2gpo0=0x9999
+mcs2gpo1=0x9999
+cckPwrOffset=-2
 
-# Default Target Power for 5G -- 13dBm(54)/13dBm(HT20-MCS7,VHT20-MCS8)/12dBm(HT40-MCS7,VHT40-MCS9)/11dBm(VHT80-MCS8/MCS9)/13dBm(6,20HT-MCS0)
-# 74/4 = 18.5 -1.5 = 17
+#5G-target power for low band
+maxp5gla0=76
+ofdm5glpo=0x77777777
+mcs5glpo0=0x9999
+mcs5glpo1=0x9999
+mcs5glpo2=0x9999
+mcs5glpo3=0x9999
+#5G-target power for midband
+maxp5ga0=76
+ofdm5gpo=0x77777777
+mcs5gpo0=0x9999
+mcs5gpo1=0x9999
+mcs5gpo2=0x9999
+mcs5gpo3=0x9999
+#5G-target power for high band
+maxp5gha0=76
+ofdm5ghpo=0x77777777
+mcs5ghpo0=0x9999
+mcs5ghpo1=0x9999
+mcs5ghpo2=0x9999
+mcs5ghpo3=0x9999
 
-maxp5ga0=78,78,78,78
+PwrOffset40mhz5g=0
 
-# Low
-mcslr5glpo=0
-
-# 11n/ac MCS0/1/2,3-7,C8,C9 power offset for 20MHz
-# C9/C8/M7/M6(54M)/M5(48M)/M4(36M)/M3(24M)/M0-2 (18M/12M/9M/6M)
-# C8,9 -12 / M7 - 13/ M6~5,54,48 - 14 / M4~3,36M,24M - 14 / M0-2 (18M/12M/9M/6M) -15
-
-mcsbw205glpo=0xAA866664
-mcsbw405glpo=0xAA866664
-mcsbw805glpo=0xAA866664
-# Mid
-mcslr5gmpo=0
-mcsbw205gmpo=0xAA866664
-mcsbw405gmpo=0xAA866664
-mcsbw805gmpo=0xAA866664
-# High
-mcslr5ghpo=0
-mcsbw205ghpo=0xAA866664
-mcsbw405ghpo=0xAA866664
-mcsbw805ghpo=0xAA866664
+#2G & 5G digital filter type for CCK and OFDM
+cckdigfilttype=24
+ofdmdigfilttype2g=3
+ofdmdigfilttype5g=3
+ofdm40digfilttype=5
 
 
-#20MHz High Rate
-sb20in40hrpo=0x0
-sb20in80and160hr5glpo=0x0
-sb20in80and160hr5gmpo=0x0
-sb20in80and160hr5ghpo=0x0
-#40MHz High Rate
-sb40and80hr5glpo=0x0
-sb40and80hr5gmpo=0x0
-sb40and80hr5ghpo=0x0
-#20MHz Low Rate
-sb20in40lrpo=0x0
-sb20in80and160lr5glpo=0x0
-sb20in80and160lr5gmpo=0x0
-sb20in80and160lr5ghpo=0x0
-#40MHz Low Rate
-sb40and80lr5glpo=0x0
-sb40and80lr5gmpo=0x0
-sb40and80lr5ghpo=0x0
-dot11agduphrpo=0x0
-dot11agduplrpo=0x0
-tssifloor2g=80
-tssifloor5g=160,190,240,260
-#rpcal:use with 171.17 or later, compensates filter ripple
-rpcal2g=0x0
-rpcal5gb0=0x0
-#cckdigfilttype[0-7] 0:default
-cckdigfilttype=2
-phycal_tempdelta=25
-#GPIO 0 for SDIO HW OOB interruption
-muxenab=0x10
+rxpo5g=0
+dacrate2xen=1
+txalpfbyp=1
+txalpfpu=1
+
+#RFMD 2G & 5G FEM switch control table 
+swctrlmap_2g=0x00040004,0x000a000a,0x00020002,0x1020a,0x1ff
+swctrlmap_5g=0x00400040,0x00300030,0x00100010,0x1020a,0x2f8
+
+elna_off_gain_idx_2g=30
+triso2g=8
+triso5g=7
+
+#muxenab=0x10
+dacpu.fab.4=1
+
+aci_detect_en_2g=1
+
+iqlocalidx5g=45
+dlocalidx5g=65
+lpbckmode5g=1
+txiqlopapu5g=0
+iqcalidx5g=50
+txiqlopapu2g=0
+dlorange_lowlimit=5
+loflag=1
+
+gain_settle_dly_2g=4
+gain_settle_dly_5g=4
+noise_cal_po_2g=-1
+noise_cal_po_40_2g=-1
+noise_cal_high_gain_2g=73
+noise_cal_nf_substract_val_2g=346
+noise_cal_po_5g=-1
+noise_cal_po_40_5g=-1
+noise_cal_high_gain_5g=73
+noise_cal_nf_substract_val_5g=346
+
+rssicorrnorm=2
+rssicorratten=2
+rssicorrnorm5g=-1,1,4
+rssicorratten5g=-1,1,4
+
+# GPIO for SDIO SW OOB 
+sd_gpout=4
+sd_gpval=1
+sd_oobonly=1
+
+# GPIO for HW OOB
 #sd_gpout=0
-#sd_oobonly=1
-rssicorrnorm_c0=-3,-2
-rssicorrnorm5g_c0=-1,0,-3,-1,0,-3,-3,-2,-4,-3,-2,-4
-txidxcap2g=36
-txidxcap5g=42
-paparambwver=1
+#sd_gpval=1
+#muxenab=0x10
+
+# Set btc_params for BT coex issue
+btc_params33=3
+btc_params6=10
