@@ -283,10 +283,12 @@ service charger /system/bin/charger
 service conn_init /vendor/bin/hwaddrs
     class core
     user root
-    group system
+    group system wifi bluetooth
     oneshot
 
 on property:init.svc.conn_init=stopped
+    chmod 0644 /data/misc/wifi/config
+    chown system wifi /data/misc/wifi/config
     chmod 0644 /data/misc/bluetooth/bdaddr
     chown bluetooth bluetooth /data/misc/bluetooth/bdaddr
 
