@@ -113,7 +113,7 @@ int main() {
 	srand(time(NULL));
 
 	datamiscpath = "/data/misc/wifi/config";
-	persistpath = "/persist/wifi/.macaddr";
+	persistpath = "/persist/.macaddr";
 	if (checkAddr(datamiscpath, 1) == 0) {
 		if (checkAddr(persistpath, 1) == 0) {
 			writeAddr(persistpath, 0x3000, 1);
@@ -122,7 +122,7 @@ int main() {
 	}
 
 	datamiscpath = "/data/misc/bluetooth/bdaddr";
-	persistpath = "/persist/.bdaddr";
+	persistpath = "/persist/.baddr";
 	if (checkAddr(datamiscpath, 0) == 0) {
 		if (checkAddr(persistpath, 0) == 0) {
 			writeAddr(persistpath, 0x4000, 0);
