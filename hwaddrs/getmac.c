@@ -26,8 +26,6 @@
 #include <time.h>
 #include <unistd.h>
 
-/* Read plain address from misc partiton and set the Wifi and BT mac addresses accordingly */
-
 // Validates the contents of the given file
 int checkAddr(char* filepath, int key) {
 	chmod(filepath,S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
@@ -59,18 +57,31 @@ int checkAddr(char* filepath, int key) {
 
 // Writes a file using an address from the misc partition
 // Generates a random address if the one read contains only zeroes
-void writeAddr(char* filepath, int key) {
+void writeAddr(char* filepath, int offset, int key) {
 	uint8_t macbytes[6];
 	char macbuf[19];
+	int i, macnums = 0;
+	int miscfd = open("/dev/block/platform/msm_sdcc.1/by-name/misc", O_RDONLY);
 	int writefd = open(filepath, O_WRONLY|O_CREAT|O_TRUNC, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
 
-	// Last two bits of the first octet are special
-	macbytes[0] = ((uint8_t) rand() % 256) << 2;
-	macbytes[1] = (uint8_t) rand() % 256;
-	macbytes[2] = (uint8_t) rand() % 256;
-	macbytes[3] = (uint8_t) rand() % 256;
-	macbytes[4] = (uint8_t) rand() % 256;
-	macbytes[5] = (uint8_t) rand() % 256;
+	lseek(miscfd, offset, SEEK_SET);
+
+	for (i = 0; i < 6; i++) {
+		read(miscfd, &macbytes[i], 1);
+		macnums |= macbytes[i];
+	}
+
+	close(miscfd);
+
+	if (macnums == 0) {
+		// Last two bits of the first octet are special
+		macbytes[0] = ((uint8_t) rand() % 256) << 2;
+		macbytes[1] = (uint8_t) rand() % 256;
+		macbytes[2] = (uint8_t) rand() % 256;
+		macbytes[3] = (uint8_t) rand() % 256;
+		macbytes[4] = (uint8_t) rand() % 256;
+		macbytes[5] = (uint8_t) rand() % 256;
+	}
 
 	if (key == 1) write(writefd, "cur_etheraddr=", 14);
 	sprintf(macbuf, "%02x:%02x:%02x:%02x:%02x:%02x\n",
@@ -97,7 +108,7 @@ void copyAddr(char* source, char* dest) {
 	chmod(dest,S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
 }
 
-int main() {	
+int main() {
 	char *datamiscpath, *persistpath;
 	srand(time(NULL));
 
@@ -105,7 +116,7 @@ int main() {
 	persistpath = "/persist/wifi/.macaddr";
 	if (checkAddr(datamiscpath, 1) == 0) {
 		if (checkAddr(persistpath, 1) == 0) {
-			writeAddr(persistpath, 1);
+			writeAddr(persistpath, 0x3000, 1);
 		}
 		copyAddr(persistpath, datamiscpath);
 	}
@@ -114,10 +125,10 @@ int main() {
 	persistpath = "/persist/.bdaddr";
 	if (checkAddr(datamiscpath, 0) == 0) {
 		if (checkAddr(persistpath, 0) == 0) {
-			writeAddr(persistpath, 0);
+			writeAddr(persistpath, 0x4000, 0);
 		}
 		copyAddr(persistpath, datamiscpath);
 	}
-	
+
 	return 0;
 }
