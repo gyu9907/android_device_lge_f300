@@ -115,7 +115,7 @@ void Light::setBacklight(const LightState& state) {
 void Light::setButtonsBacklight(const LightState& state) {
     std::lock_guard<std::mutex> lock(mLock);
     bool on = isLit(state);
-    int brightness = on?8:0;
+    int brightness = on?80:0;
     mButtonBacklight1 << brightness << std::endl;
     mButtonBacklight2 << brightness << std::endl;
 }
