@@ -26,8 +26,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1 \
-    media.camera.ts.monotonic=0
+    camera2.portability.force_api=1
 
 # Dalvik heap
 PRODUCT_PROPERTY_OVERRIDES += \
