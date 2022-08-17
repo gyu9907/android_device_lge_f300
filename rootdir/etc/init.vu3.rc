@@ -375,17 +375,3 @@ on property:sys.boot_completed=1
     stop vendor.qseecomd
     trigger start_qsee
 
-on start_qsee
-   wait /tmp/nothing 1
-   start vendor.qseecomd
-   trigger restart_audioserver
-
-on restart_audioserver
-   wait /tmp/nothing 1
-   stop audioserver
-   trigger start_audioserver
-
-on start_audioserver
-   wait /tmp/nothing 1
-   start audioserver
-
