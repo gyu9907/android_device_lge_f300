@@ -161,8 +161,8 @@ PRODUCT_COPY_FILES += \
 
 # Health
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl \
-    android.hardware.health@2.1-service
+    android.hardware.health@2.0-impl-default \
+    android.hardware.health@2.0-service
 
 # HIDL
 PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
@@ -173,10 +173,10 @@ PRODUCT_PACKAGES += \
     init.g2.rc \
     init.g2.power.rc \
     init.g2.usb.rc \
-    init.recovery.g2.rc \
-    init.recovery.g2.power.rc \
     set_baseband.sh \
     ueventd.g2.rc
+    #init.recovery.g2.rc \
+    #init.recovery.g2.power.rc \
 
 # IPv6 tethering
 PRODUCT_PACKAGES += \
