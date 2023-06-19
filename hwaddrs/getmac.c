@@ -121,7 +121,7 @@ int main() {
 		copyAddr(persistpath, datamiscpath);
 	}
 
-	datamiscpath = "/data/misc/bluetooth/bdaddr";
+	datamiscpath = "/data/misc/bdaddr";
 	persistpath = "/persist/.baddr";
 	if (checkAddr(datamiscpath, 0) == 0) {
 		if (checkAddr(persistpath, 0) == 0) {

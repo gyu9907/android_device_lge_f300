@@ -130,7 +130,8 @@ TARGET_USE_SDCLANG := true
 include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += \
-    device/lge/g2-common/sepolicy
+    device/lge/g2-common/sepolicy \
+    device/lge/f300/sepolicy
 
 # Wi-Fi
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211

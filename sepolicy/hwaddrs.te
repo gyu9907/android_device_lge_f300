@@ -1,9 +1,7 @@
 allow hwaddrs self:capability { dac_override };
 
 allow hwaddrs wifi_data_file:file create_file_perms;
-allow hwaddrs bluetooth_data_file:file create_file_perms;
 allow hwaddrs persist_file:file create_file_perms;
 
 allow hwaddrs wifi_data_file:dir { search write add_name };
-allow hwaddrs bluetooth_data_file:dir { search write add_name };
 allow hwaddrs persist_file:dir { search write add_name };
