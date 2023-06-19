@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-$(call inherit-product-if-exists, vendor/lge/d802/d802-vendor.mk)
+$(call inherit-product-if-exists, vendor/lge/f300/f300-vendor.mk)
 $(call inherit-product, device/lge/g2-common/g2.mk)
 
 ## overlays
@@ -25,4 +25,10 @@ $(call inherit-product, device/lge/g2-common/nfc.mk)
 
 # Sensors
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/sensor_def_d802.conf:system/etc/sensor_def_variable.conf
+    $(LOCAL_PATH)/configs/sensor_def_f300.conf:system/etc/sensor_def_variable.conf
+    
+# Touchscreen
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    $(LOCAL_PATH)/keylayout/lgps11-keypad.kl:system/usr/keylayout/lgps11-keypad.kl \
+    $(LOCAL_PATH)/keylayout/touch_dev.idc:system/usr/idc/touch_dev.idc
