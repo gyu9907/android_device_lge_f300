@@ -21,7 +21,7 @@ fi
 . "$HELPER"
 
 # Initialize the helper for device
-setup_vendor "$DEVICE" "$VENDOR" "$CM_ROOT" true
+setup_vendor "$DEVICE" "$VENDOR" "$CM_ROOT"
 
 # Copyright headers and guards
 write_headers
