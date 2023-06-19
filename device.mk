@@ -15,7 +15,6 @@
 #
 
 $(call inherit-product-if-exists, vendor/lge/f300/f300-vendor.mk)
-$(call inherit-product, device/lge/g2-common/g2.mk)
 
 ## overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
