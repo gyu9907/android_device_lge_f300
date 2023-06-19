@@ -231,6 +231,7 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/vendor/etc/media_codecs_google_video.xml
 
 # NFC
+$(call inherit-product, device/lge/g2-common/nfc.mk)
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.0-service \
     Tag \
