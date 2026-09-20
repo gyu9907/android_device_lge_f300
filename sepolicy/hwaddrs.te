@@ -1,2 +1,5 @@
 allow hwaddrs wifi_data_file:file create_file_perms;
 allow hwaddrs wifi_data_file:dir { search write add_name };
+
+# Existing address files are owned by Wi-Fi/Bluetooth after the first boot.
+allow hwaddrs self:capability { fowner fsetid };

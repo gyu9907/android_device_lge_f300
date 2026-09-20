@@ -19,6 +19,10 @@ $(call inherit-product-if-exists, vendor/lge/f300/f300-vendor.mk)
 
 COMMON_PATH := device/lge/g2-common
 
+# Linux 3.4 process groups use the v1 cpuacct hierarchy.
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/cgroups.json:$(TARGET_COPY_OUT_VENDOR)/etc/cgroups.json
+
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \

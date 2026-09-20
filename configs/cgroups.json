@@ -1,0 +1,26 @@
+{
+  "Cgroups": [
+    {
+      "Controller": "cpuacct",
+      "Path": "/sys/fs/cgroup",
+      "Mode": "0755",
+      "UID": "system",
+      "GID": "system"
+    },
+    {
+      "Controller": "cpuset",
+      "Path": "/dev/cpuset",
+      "Mode": "0755",
+      "UID": "system",
+      "GID": "system",
+      "Optional": true
+    }
+  ],
+  "Cgroups2": {
+    "Path": "/sys/fs/cgroup",
+    "Mode": "0755",
+    "UID": "system",
+    "GID": "system",
+    "Optional": true
+  }
+}
